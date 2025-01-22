@@ -1,0 +1,68 @@
+# Importar bibliotecas
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Carregar dados
+df = pd.read_csv('ecommerce_estatistica.csv')
+
+# Análise exploratória
+print(df.head())  # Visualizar primeiras linhas
+print(df.info())  # Informações sobre os dados
+print(df.describe())  # Estatísticas descritivas
+
+# Gráficos
+
+# Histograma
+plt.figure(figsize=(8,6))
+sns.histplot(df['Preço'], bins=10)
+plt.title('Distribuição de Preços')
+plt.xlabel('Preço')
+plt.ylabel('Frequência')
+plt.show()
+
+# Gráfico de dispersão
+plt.figure(figsize=(8,6))
+sns.scatterplot(x='Preço', y='Nota', data=df)
+plt.title('Relação Preço-Nota')
+plt.xlabel('Preço')
+plt.ylabel('Nota')
+plt.show()
+
+# Correlação entre variáveis numéricas
+df_num = df.select_dtypes(include=['int64', 'float64'])
+corr = df_num.corr()
+plt.figure(figsize=(10,8))
+sns.heatmap(corr, annot=True)
+plt.title('Correlação entre Variáveis Numéricas')
+plt.show()
+
+# Gráfico de barra
+plt.figure(figsize=(8,6))
+sns.countplot(x='Marca', data=df)
+plt.title('Distribuição por Marca')
+plt.xlabel('Marca')
+plt.ylabel('Frequência')
+plt.show()
+
+# Gráfico de pizza
+plt.figure(figsize=(8,6))
+plt.pie(df['Marca'].value_counts(), labels=df['Marca'].unique(), autopct='%1.1f%%')
+plt.title('Distribuição de Marcas')
+plt.show()
+
+# Gráfico de densidade
+plt.figure(figsize=(8,6))
+sns.kdeplot(df['Preço'])
+plt.title('Densidade de Preços')
+plt.xlabel('Preço')
+plt.ylabel('Densidade')
+plt.show()
+
+# Gráfico de regressão
+plt.figure(figsize=(8,6))
+sns.regplot(x='Preço', y='Nota', data=df)
+plt.title('Regressão Linear Preço-Nota')
+plt.xlabel('Preço')
+plt.ylabel('Nota')
+plt.show()
